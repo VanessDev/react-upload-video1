@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : lun. 15 déc. 2025 à 13:26
+-- Généré le : lun. 15 déc. 2025 à 13:53
 -- Version du serveur : 8.4.3
 -- Version de PHP : 8.3.16
 
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `comments` (
   `id` int NOT NULL,
-  `comment` text NOT NULL,
+  `comment` varchar(500) NOT NULL,
   `video_id` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -41,33 +41,33 @@ CREATE TABLE `comments` (
 
 CREATE TABLE `notations` (
   `id` int NOT NULL,
-  `notation` int NOT NULL,
+  `notation` enum('1','2','3','4','5') NOT NULL,
   `video_id` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `theme`
+-- Structure de la table `themes`
 --
 
-CREATE TABLE `theme` (
+CREATE TABLE `themes` (
   `id` int NOT NULL,
-  `name` varchar(100) NOT NULL,
-  `video_id` int NOT NULL
+  `name` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `video`
+-- Structure de la table `videos`
 --
 
-CREATE TABLE `video` (
+CREATE TABLE `videos` (
   `id` int NOT NULL,
   `name` varchar(255) NOT NULL,
   `posted_by` varchar(255) NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `theme_id` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
@@ -89,17 +89,17 @@ ALTER TABLE `notations`
   ADD KEY `fk_notations_video` (`video_id`);
 
 --
--- Index pour la table `theme`
+-- Index pour la table `themes`
 --
-ALTER TABLE `theme`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_theme_video` (`video_id`);
+ALTER TABLE `themes`
+  ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `video`
+-- Index pour la table `videos`
 --
-ALTER TABLE `video`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `videos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_videos_theme` (`theme_id`);
 
 --
 -- AUTO_INCREMENT pour les tables déchargées
@@ -118,15 +118,15 @@ ALTER TABLE `notations`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT pour la table `theme`
+-- AUTO_INCREMENT pour la table `themes`
 --
-ALTER TABLE `theme`
+ALTER TABLE `themes`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT pour la table `video`
+-- AUTO_INCREMENT pour la table `videos`
 --
-ALTER TABLE `video`
+ALTER TABLE `videos`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
@@ -137,19 +137,19 @@ ALTER TABLE `video`
 -- Contraintes pour la table `comments`
 --
 ALTER TABLE `comments`
-  ADD CONSTRAINT `fk_comments_video` FOREIGN KEY (`video_id`) REFERENCES `video` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `fk_comments_video` FOREIGN KEY (`video_id`) REFERENCES `videos` (`id`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `notations`
 --
 ALTER TABLE `notations`
-  ADD CONSTRAINT `fk_notations_video` FOREIGN KEY (`video_id`) REFERENCES `video` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `fk_notations_video` FOREIGN KEY (`video_id`) REFERENCES `videos` (`id`) ON DELETE CASCADE;
 
 --
--- Contraintes pour la table `theme`
+-- Contraintes pour la table `videos`
 --
-ALTER TABLE `theme`
-  ADD CONSTRAINT `fk_theme_video` FOREIGN KEY (`video_id`) REFERENCES `video` (`id`) ON DELETE CASCADE;
+ALTER TABLE `videos`
+  ADD CONSTRAINT `fk_videos_theme` FOREIGN KEY (`theme_id`) REFERENCES `themes` (`id`) ON DELETE SET NULL;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
