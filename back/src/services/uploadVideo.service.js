@@ -1,5 +1,4 @@
 
-
 export async function uploadVideo(videoData) {
     const sql = `
      INSERT INTO videos

@@ -16,9 +16,24 @@ app.use("/api", router);
 
 app.use(notFound);
 
+
 // route test
 app.get("/", (req, res) => {
   res.json({ message: "Viadeo is running" });
+});
+
+app.use((err, req, res, next) => {
+  if (!err) return next();
+
+  if (err.code === "LIMIT_FILE_SIZE") {
+    return res.status(413).json({ error: "Fichier trop volumineux (Max 200 Mo)" });
+  }
+  if (err.message === "TYPE_NOT_ALLOWED") {
+    return res.status(415).json({ error: "Type video refusé (mp4/webm/mov seulement)" });
+  }
+
+  console.error(err);
+  return res.status(500).json({ error: "Erreur serveur", details: err.message });
 });
 
 export default app;
