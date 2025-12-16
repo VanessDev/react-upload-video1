@@ -13,12 +13,13 @@ function Home() {
         try {
             console.log("try ok");
             
-            const response = await fetch("http://localhost:3000/api/video");
+            const response = await fetch("http://localhost:3000/api/video/");
 
             if (response.ok) {
 
                 const data = await response.json();
                 console.log(data);
+                console.log(data.videos);
                 
                 setVideos(data.videos);
 
@@ -45,11 +46,13 @@ function Home() {
             <div>
                {error && <p>{error}</p>} 
             </div>
+            { videos.map((v) => (
             <div className="video-card">
-                <p className="title-video-card">Title</p>
-                <video src=""></video>
-                <p className="video-card-description">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Optio error voluptatum doloremque, illum facilis at, hic labore cum mollitia perspiciatis possimus in nisi totam est laborum earum culpa. Nemo, vitae!</p>
+                <p className="title-video-card">{v.title}</p>
+                <video controls width="600" src={`http://localhost:3000/api/video/${id}/stream`} ></video>
+                <p className="video-card-description">{v.description}</p>
             </div>
+            ))}
         </div>
     )
 }
