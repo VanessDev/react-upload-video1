@@ -1,18 +1,21 @@
-const express = require('express');
-const cors = require('cors');
-const morgan = require('morgan');
-
+import express from "express";
+import morgan from "morgan";
+import cors from "cors";
+import router from "./routes/index.js";
 
 const app = express();
 
+// middlewares globaux
 app.use(cors());
 app.use(express.json());
-app.use(morgan('dev'));
+app.use(morgan("dev"));
 
+// routes API
+app.use("/api", router);
 
-
-app.get('/', (req, res) => {
-  res.json({ message: 'Viadeo is running' });
+// route test
+app.get("/", (req, res) => {
+  res.json({ message: "Viadeo is running" });
 });
 
-module.exports = app;
+export default app;
