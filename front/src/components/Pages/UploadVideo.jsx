@@ -48,24 +48,27 @@ function UploadVideo() {
 
           <form onSubmit={handleSubmit} className="upload-form">
             <div className="intem-form">
-              <label htmlFor="">Vidéo</label>
-              <input type="file" accept="mp4" />              
+              <label htmlFor="video">Vidéo</label>
+              <input type="file" name="video" accept="video/*" required/>
             </div>
             <div className="intem-form">
-              <label htmlFor="">Titre de la vidéo</label>
-              <input type="text" placeholder="Saisisez le titre"/>              
+              <label htmlFor="title">Titre de la vidéo</label>
+              <input type="text" name="title" placeholder="Saisisez le titre" required/>              
             </div>
             <div className="intem-form">
-              <label htmlFor="">Thème</label>
-              <select name="thème" id="thème">
+              <label htmlFor="theme">Thème</label>
+              <select name="theme" id="thème" required>
                 <option value="">Choisir le théme de la vidéo</option>
+                <option value="fantasy">Fantasy</option>
+                <option value="nature">Nature</option>
               </select>              
             </div>
             <div className="intem-form">
-              <label htmlFor="">Description</label>
-              <textarea type="text" placeholder="Description"/>              
+              <label htmlFor="description">Description</label>
+              <textarea type="text" name="description" placeholder="Description"/>              
             </div>
             <button className="btn-upload">Ajouter</button>
+            {message && <p>{message}</p>}
           </form>       
         </div>
     </div>
