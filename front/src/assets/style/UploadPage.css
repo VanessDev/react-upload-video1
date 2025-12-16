@@ -1,0 +1,59 @@
+.upload-page {
+    background-color: rgba(255, 255, 255, 0.9);
+    height: 100%;
+    width: 60%;
+    place-content: center;
+    place-items: center;
+    padding: 60px;
+}
+
+.upload-section {
+    background-color: rgb(255, 255, 255);
+    padding: 50px;
+    border-radius: 20px;
+    box-shadow: 4px 4px 4px 0 rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 600px;
+    gap: 20px;
+}
+
+.upload-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.intem-form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+}
+
+input,
+select,
+option,
+textarea {
+    padding: 4px;
+    border-radius: 8px;
+    width: 400px;
+    border-color: rgba(0, 0, 0, 0.25);
+    resize: vertical;
+}
+
+.btn-upload {
+    background-color: rgb(52, 91, 222);
+    color: rgb(255, 255, 255);
+    border-radius: 20px;
+    padding: 10px;
+    width: 100px;
+    border: none;
+}
+
+.btn-upload:hover {
+    background-color: rgb(0, 71, 212);
+}
