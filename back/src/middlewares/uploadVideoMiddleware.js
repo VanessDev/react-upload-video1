@@ -45,11 +45,16 @@ const upload = multer({
     fileSize: 200 * 1024 * 1024, // 200 MB
   },
   fileFilter(req, file, cb) {
-    if (isAllowedVideoMime(file.mimetype)) {
-      cb(null, true);
-    } else {
-      cb(new Error("TYPE_NOT_ALLOWED"));
-    }
+    const ext = path.extname(file.originalname).toLowerCase();
+
+    const okExt = [".mp4", ".webm", ".mov"].includes(ext);
+    const okMime = ["video/mp4", "video/webm", "video/quicktime"].includes(
+      file.mimetype
+    );
+
+    if (okMime || okExt) return cb(null, true);
+
+    return cb(new Error("TYPE_NOT_ALLOWED"));
   },
 });
 
