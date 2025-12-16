@@ -162,3 +162,15 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+-- changer le nom de la colonne name en title dans la table video :
+ ALTER TABLE video
+CHANGE name title VARCHAR(255); 
+--  le code pour ajouter les colonnes description, filename, original_name, mime_type, size et path : 
+ALTER TABLE video
+ADD description TEXT,
+ADD filename VARCHAR(255),
+ADD original_name VARCHAR(255),
+ADD mime_type VARCHAR(100),
+ADD size BIGINT,
+ADD path VARCHAR(500);
