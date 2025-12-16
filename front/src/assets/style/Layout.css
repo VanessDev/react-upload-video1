@@ -48,7 +48,11 @@ footer {
 }
 
 main {
-    height: 80vh;
     place-content: center;
     place-items: center;
+}
+
+.logo {
+    width: 80px;
+    border-radius: 50%;
 }
