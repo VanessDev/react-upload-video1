@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import "../../assets/style/Home.css";
 
 function Home() {
 
@@ -39,13 +40,15 @@ function Home() {
     }, [])
 
     return(
-        <div>
+        <div className="home-page">
             <h2>Bienvenue sur VIADEO !</h2>
             <div>
                {error && <p>{error}</p>} 
             </div>
-            <div>
-                
+            <div className="video-card">
+                <p className="title-video-card">Title</p>
+                <video src=""></video>
+                <p className="video-card-description">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Optio error voluptatum doloremque, illum facilis at, hic labore cum mollitia perspiciatis possimus in nisi totam est laborum earum culpa. Nemo, vitae!</p>
             </div>
         </div>
     )
