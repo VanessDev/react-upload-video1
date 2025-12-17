@@ -14,7 +14,7 @@ function Home() {
         try {
             console.log("try ok");
 
-            const data = getVideosList();
+            const data = await getVideosList();
             console.log(data);
             console.log(data.videos);      
 
@@ -37,13 +37,13 @@ function Home() {
             <div>
                {error && <p>{error}</p>} 
             </div>
-            {/* { videos.map((v) => (
+            { videos.map((v) => (
             <div className="video-card" key={v.id}>
                 <p className="title-video-card">{v.title}</p>
                 <video controls width="600" src={`http://localhost:3000/api/video/${v.id}/stream`} ></video>
                 <p className="video-card-description">{v.description}</p>
             </div>
-            ))} */}
+            ))}
         </div>
     )
 }
