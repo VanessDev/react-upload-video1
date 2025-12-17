@@ -7,7 +7,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 //lister et verifier les infos necessaires pour démarrer l'app
-const require =["DB_HOST", "DB_USER", "DB_NAME", "DB_PORT", "JWT_SECRET"];
+const require =["DB_HOST", "DB_USER", "DB_NAME","DB_PASS", "DB_PORT", "JWT_SECRET"];
 for(const key of require) {
     if(!process.env[key]){
         throw new Error (key + " manquant dans le fichier .env");
