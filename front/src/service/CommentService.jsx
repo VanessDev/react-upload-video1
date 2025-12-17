@@ -1,5 +1,5 @@
 // On importe la configuration pour éviter les codes en dur
-import { API_BASE_URL } from '../config/constants.js';
+import { API_BASE_URL } from '../config/constants';
 
 // Cette classe contient toutes les fonctions pour parler avec le serveur concernant les commentaires
 class CommentService {

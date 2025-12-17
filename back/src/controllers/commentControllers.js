@@ -36,7 +36,7 @@ const createComment = async (req, res) => {
         if (videoExists.length === 0) {
             return res.status(404).json({
                 success: false,
-                message: 'La vidéo spécifiée n\'existe pas',
+                message: "La vidéo spécifiée n'existe pas",
                 data: null
             });
         }
@@ -138,7 +138,7 @@ const updateComment = async (req, res) => {
         if (commentExists.length === 0) {
             return res.status(404).json({
                 success: false,
-                message: 'Le commentaire spécifié n\'existe pas',
+                message: "Le commentaire spécifié n'existe pas",
                 data: null
             });
         }
@@ -175,7 +175,7 @@ const deleteComment = async (req, res) => {
         if (commentExists.length === 0) {
             return res.status(404).json({
                 success: false,
-                message: 'Le commentaire spécifié n\'existe pas',
+                message: "Le commentaire spécifié n'existe pas",
                 data: null
             });
         }
