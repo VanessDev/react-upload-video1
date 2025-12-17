@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "../../assets/style/Home.css";
+import { getVideosList } from "../../services/ApiVideos";
 
 function Home() {
 
@@ -12,22 +13,12 @@ function Home() {
 
         try {
             console.log("try ok");
-            
-            const response = await fetch("http://localhost:3000/api/video/");
 
-            if (response.ok) {
+            const data = getVideosList();
+            console.log(data);
+            console.log(data.videos);      
 
-                const data = await response.json();
-                console.log(data);
-                console.log(data.videos);
-                
-                setVideos(data.videos);
-
-            } else {
-
-                setError("Erreur lors du chargement des vidéos");
-
-            }
+            setVideos(data.videos);
 
         } catch (err) {
 
@@ -46,13 +37,13 @@ function Home() {
             <div>
                {error && <p>{error}</p>} 
             </div>
-            { videos.map((v) => (
-            <div className="video-card">
+            {/* { videos.map((v) => (
+            <div className="video-card" key={v.id}>
                 <p className="title-video-card">{v.title}</p>
-                <video controls width="600" src={`http://localhost:3000/api/video/${id}/stream`} ></video>
+                <video controls width="600" src={`http://localhost:3000/api/video/${v.id}/stream`} ></video>
                 <p className="video-card-description">{v.description}</p>
             </div>
-            ))}
+            ))} */}
         </div>
     )
 }
