@@ -11,17 +11,19 @@ app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
 
-// routes API
-app.use("/api", router);
-
-app.use(notFound);
-
-
 // route test
 app.get("/", (req, res) => {
   res.json({ message: "Viadeo is running" });
 });
 
+// routes API
+app.use("/api", router);
+
+
+// 404 (TOUJOURS après les routes)
+app.use(notFound);
+
+// error handler (TOUJOURS après notFound)
 app.use((err, req, res, next) => {
   if (!err) return next();
 
