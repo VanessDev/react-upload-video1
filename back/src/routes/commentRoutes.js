@@ -1,16 +1,23 @@
-const express = require('express');
-// On importe toutes les fonctions qui gèrent les commentaires
-const { createComment, getComments, getCommentsByVideo, updateComment, deleteComment } = require('../controllers/commentControllers.js');
+import express from "express";
 
-// On crée un routeur pour organiser les routes des commentaires
+// Import des controllers commentaires
+import {
+  createComment,
+  getComments,
+  getCommentsByVideo,
+  updateComment,
+  deleteComment,
+} from "../controllers/commentControllers.js";
+
+// Création du router
 const router = express.Router();
 
+// Routes commentaires
+router.get("/comments", getComments);
+router.get("/comments/video/:videoId", getCommentsByVideo);
+router.post("/comments", createComment);
+router.put("/comments/:id", updateComment);
+router.delete("/comments/:id", deleteComment);
 
-router.get('/comments', getComments);
-router.get('/comments/video/:videoId', getCommentsByVideo);
-router.post('/comments', createComment);
-router.put('/comments/:id', updateComment);
-router.delete('/comments/:id', deleteComment);
-
-// On exporte le routeur pour pouvoir l'utiliser dans app.js
-module.exports = router;
+// Export ES module
+export default router;

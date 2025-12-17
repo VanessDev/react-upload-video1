@@ -1,16 +1,9 @@
-
-const express = require('express');
-const cors = require('cors');
-const morgan = require('morgan');
-const commentRoutes = require('./routes/commentRoutes.js');
-
-
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
 import router from "./routes/index.js";
+import commentRoutes from "./routes/commentRoutes.js";
 import notFound from "./middlewares/notFound.js";
-
 
 const app = express();
 
@@ -19,17 +12,22 @@ app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
 
-// routes API
-app.use("/api", router);
-
-app.use(notFound);
-
-
 // route test
 app.get("/", (req, res) => {
   res.json({ message: "Viadeo is running" });
 });
 
+// routes API
+app.use("/api", router);
+
+// routes comments (si tu veux les séparer du router principal)
+app.use("/api", commentRoutes); 
+// (comme ça ça garde /comments, /comments/video/:videoId, etc)
+
+// 404 (TOUJOURS après les routes)
+app.use(notFound);
+
+// error handler (TOUJOURS après notFound)
 app.use((err, req, res, next) => {
   if (!err) return next();
 
@@ -44,11 +42,4 @@ app.use((err, req, res, next) => {
   return res.status(500).json({ error: "Erreur serveur", details: err.message });
 });
 
-
-app.use('/api/comments', commentRoutes);
-
-
-module.exports = app;
-
 export default app;
-
