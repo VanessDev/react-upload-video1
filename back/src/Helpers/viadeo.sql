@@ -174,3 +174,5 @@ ADD original_name VARCHAR(255),
 ADD mime_type VARCHAR(100),
 ADD size BIGINT,
 ADD path VARCHAR(500);
+
+-- dans la table video rendre null la colonne posted_by
