@@ -164,13 +164,15 @@ COMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
 -- changer le nom de la colonne name en title dans la table video :
- ALTER TABLE video
+ ALTER TABLE videos
 CHANGE name title VARCHAR(255); 
 --  le code pour ajouter les colonnes description, filename, original_name, mime_type, size et path : 
-ALTER TABLE video
+ALTER TABLE videos
 ADD description TEXT,
 ADD filename VARCHAR(255),
 ADD original_name VARCHAR(255),
 ADD mime_type VARCHAR(100),
 ADD size BIGINT,
 ADD path VARCHAR(500);
+
+-- dans la table video rendre null la colonne posted_by

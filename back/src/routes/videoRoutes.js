@@ -3,6 +3,10 @@ import { testController, uploadVideoController } from "../controllers/UploadVide
 import { listVideosController } from "../controllers/ListVideosController.js";
 import { OneVideoController} from "../controllers/OneVideoController.js";
 import { streamVideoController } from "../controllers/StreamVideoController.js";
+import {
+  validateCreateVideo,
+  // validateUpdateVideo,
+} from "../middlewares/Validation/validateVideoMiddleware.js";
 
 import upload from "../middlewares/uploadVideoMiddleware.js";
 
@@ -21,6 +25,6 @@ router.get("/:id/stream", streamVideoController);
 router.get("/:id", OneVideoController);
 
 // CREATE : upload vidéo
-router.post("/", upload.single("video"), uploadVideoController);
+router.post("/", upload.single("video"), validateCreateVideo, uploadVideoController);
 
 export default router;
