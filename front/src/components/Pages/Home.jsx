@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "../../assets/style/Home.css";
 import { getVideosList } from "../../services/ApiVideos";
-import { Link } from "react-router-dom";
+import CommentList from "../comments/CommentList";
 
 function Home() {
 
@@ -39,14 +39,13 @@ function Home() {
                {error && <p>{error}</p>} 
             </div>
             { videos.map((v) => (
-                <Link to={`/${v.id}`} key={v.id} className="video-link">   
-                    <div className="video-card">
-                        <p className="title-video-card">{v.title}</p>
-                        <video controls width="300" src={`http://localhost:3000/api/video/${v.id}/stream`} ></video>
-                        <p>{v.theme}</p>
-                        <p className="video-card-description">{v.description}</p>
-                    </div>
-                </Link>
+            <div className="video-card" key={v.id}>
+                <p className="title-video-card">{v.title}</p>
+                <video controls width="600" src={`http://localhost:3000/api/video/${v.id}/stream`} ></video>
+                <p className="video-card-description">{v.description}</p>
+                
+                <CommentList videoId={v.id} />
+            </div>
             ))}
         </div>
     )
