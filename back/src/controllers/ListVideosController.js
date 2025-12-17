@@ -15,7 +15,7 @@ export async function listVideosController(req, res) {
         size,
         path,
         created_at
-      FROM video
+      FROM videos
       ORDER BY created_at DESC
       `
     );

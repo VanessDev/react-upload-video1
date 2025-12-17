@@ -31,7 +31,7 @@ export async function uploadVideoController(req, res) {
     //  Insertion en base de données
     const [result] = await pool.execute(
       `
-      INSERT INTO video
+      INSERT INTO videos
       (title, description, filename, original_name, mime_type, size, path)
       VALUES (?, ?, ?, ?, ?, ?, ?)
       `,
