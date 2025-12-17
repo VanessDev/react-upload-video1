@@ -7,7 +7,7 @@ export async function streamVideoController(req, res) {
 
     
     const [rows] = await pool.execute(
-      "SELECT path, mime_type FROM video WHERE id = ?",
+      "SELECT path, mime_type FROM videos WHERE id = ?",
       [id]
     );
 

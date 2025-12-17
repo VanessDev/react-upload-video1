@@ -16,7 +16,7 @@ export async function OneVideoController(req, res) {
         size,
         path,
         created_at
-      FROM video
+      FROM videos
       WHERE id = ?
       `,
       [id]
