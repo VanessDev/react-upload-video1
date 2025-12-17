@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import CommentForm from './CommentForm';
 import CommentItem from './CommentItem';
-import { commentService } from '../../service/CommentService';
+import { getCommentsByVideo } from '../../services/CommentService';
 
 // Ce composant affiche la liste de tous les commentaires d'une vidéo
 function CommentList({ videoId }) {
@@ -17,7 +17,7 @@ function CommentList({ videoId }) {
     try {
       setLoading(true); // On dit qu'on commence à charger
       // On demande au serveur tous les commentaires de cette vidéo
-      const result = await commentService.getCommentsByVideo(videoId);
+      const result = await getCommentsByVideo(videoId);
       
       if (result.success) {
         // Si ça a marché, on met à jour la liste des commentaires

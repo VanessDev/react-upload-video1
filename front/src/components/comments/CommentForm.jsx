@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { commentService } from '../../service/CommentService';
+import { addComment } from '../../services/CommentService.js';
 import { COMMENT_CONFIG } from '../../config/constants.js';
 
 // Ce composant affiche un formulaire pour écrire et envoyer un commentaire
@@ -29,7 +29,7 @@ function CommentForm({ videoId, onCommentAdded }) {
       setIsSubmitting(true);
       try {
         // On appelle le service pour envoyer le commentaire au serveur
-        const result = await commentService.addComment(videoId, content);
+        const result = await addComment(videoId, content);
         
         // Si ça a marché, on vide le formulaire et on dit au parent qu'un nouveau commentaire a été ajouté
         if (result.success) {

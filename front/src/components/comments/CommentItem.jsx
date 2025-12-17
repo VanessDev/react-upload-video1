@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { commentService } from '../../service/CommentService';
+import { updateComment, deleteComment } from '../../services/CommentService';
 
 // Ce composant affiche un seul commentaire avec la possibilité de le modifier ou le supprimer
 function CommentItem({ comment, onCommentUpdated, onCommentDeleted, videoId }) {
@@ -12,7 +12,7 @@ function CommentItem({ comment, onCommentUpdated, onCommentDeleted, videoId }) {
   const handleUpdate = async () => {
     try {
       // On envoie la modification au serveur
-      const result = await commentService.updateComment(comment.id, editContent);
+      const result = await updateComment(comment.id, editContent);
       
       if (result.success) {
         setIsEditing(false); // On sort du mode édition
@@ -36,7 +36,7 @@ function CommentItem({ comment, onCommentUpdated, onCommentDeleted, videoId }) {
 
     try {
       // On envoie la demande de suppression au serveur
-      const result = await commentService.deleteComment(comment.id);
+      const result = await deleteComment(comment.id);
       
       if (result.success) {
         onCommentDeleted && onCommentDeleted(comment.id); // On informe le composant parent

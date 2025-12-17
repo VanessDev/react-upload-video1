@@ -36,7 +36,6 @@ export async function createComment(req, res) {
       });
     }
 
-    // ⚠️ Ta table est maintenant "videos" (avec s)
     const [videoExists] = await pool.execute(
       "SELECT id FROM videos WHERE id = ?",
       [video_id]
