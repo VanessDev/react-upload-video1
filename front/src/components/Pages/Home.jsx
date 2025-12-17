@@ -41,6 +41,7 @@ function Home() {
             <div className="video-card" key={v.id}>
                 <p className="title-video-card">{v.title}</p>
                 <video controls width="600" src={`http://localhost:3000/api/video/${v.id}/stream`} ></video>
+                <p>{v.theme}</p>
                 <p className="video-card-description">{v.description}</p>
             </div>
             ))}

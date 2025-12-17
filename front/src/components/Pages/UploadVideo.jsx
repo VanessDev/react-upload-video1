@@ -36,7 +36,7 @@ function UploadVideo() {
   }
 
   return (
-    <div className="upload-page">
+    <div className="page">
       <div className="upload-section">
         <h2 className="upload-title-page">Ajouter votre vidéo</h2>
         <p>

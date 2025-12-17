@@ -5,7 +5,6 @@ export async function streamVideoController(req, res) {
   try {
     const { id } = req.params;
 
-    
     const [rows] = await pool.execute(
       "SELECT path, mime_type FROM videos WHERE id = ?",
       [id]
@@ -58,8 +57,14 @@ export async function streamVideoController(req, res) {
     });
 
     return fs.createReadStream(videoPath).pipe(res);
+
   } catch (error) {
+
     console.error("streamVideoController error:", error);
-    return res.status(500).json({ error: "Erreur serveur", details: error.message });
+    
+    return res.status(500).json({
+      error: "Erreur serveur",
+      details: error.message
+    });
   }
 }
