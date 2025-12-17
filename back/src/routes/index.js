@@ -1,13 +1,12 @@
-const express = require("express");
-const router = express.Router();
-// const (nomRoutes) = require("./");
+import { Router } from "express";
+import videoRoutes from "./videoRoutes.js";
 
+const router = Router();
 
+// routes publiques
+router.use("/video", videoRoutes);
 
-//routes publiques
+// routes protégées (plus tard)
 
-router.use("/", );
-
-//routes protegées
-
-module.exports = router;
+// export
+export default router;

@@ -1,23 +1,54 @@
+
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
 const commentRoutes = require('./routes/commentRoutes.js');
 
 
+import express from "express";
+import morgan from "morgan";
+import cors from "cors";
+import router from "./routes/index.js";
+import notFound from "./middlewares/notFound.js";
+
 
 const app = express();
 
+// middlewares globaux
 app.use(cors());
 app.use(express.json());
-app.use(morgan('dev'));
+app.use(morgan("dev"));
+
+// routes API
+app.use("/api", router);
+
+app.use(notFound);
 
 
-
-app.get('/', (req, res) => {
-  res.json({ message: 'Viadeo is running' });
+// route test
+app.get("/", (req, res) => {
+  res.json({ message: "Viadeo is running" });
 });
+
+app.use((err, req, res, next) => {
+  if (!err) return next();
+
+  if (err.code === "LIMIT_FILE_SIZE") {
+    return res.status(413).json({ error: "Fichier trop volumineux (Max 200 Mo)" });
+  }
+  if (err.message === "TYPE_NOT_ALLOWED") {
+    return res.status(415).json({ error: "Type video refusé (mp4/webm/mov seulement)" });
+  }
+
+  console.error(err);
+  return res.status(500).json({ error: "Erreur serveur", details: err.message });
+});
+
 
 app.use('/api/comments', commentRoutes);
 
 
 module.exports = app;
+
+export default app;
+
