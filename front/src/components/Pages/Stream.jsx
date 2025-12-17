@@ -27,6 +27,7 @@ function Stream() {
     }
 
     useEffect(()=> {
+        if (!id) return;
         getVideo();
     }, [id])
 
@@ -41,6 +42,7 @@ function Stream() {
     return (
         <div className="page">
             <h2>{video.title}</h2>
+            <video controls src={`http://localhost:3000/api/video/${video.id}/stream`}></video>
         </div>
     )
 }
