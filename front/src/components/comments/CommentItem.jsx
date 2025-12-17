@@ -51,20 +51,24 @@ function CommentItem({ comment, onCommentUpdated, onCommentDeleted, videoId }) {
   };
 
   return (
-    <div className="comment-item" style={{ marginBottom: '15px', padding: '10px', border: '1px solid #ddd', borderRadius: '5px' }}>
-      {/* Si on est en train de modifier, on affiche un champ de texte avec des boutons */}
+    <div className="comment-item" style={{ 
+      marginBottom: '15px', 
+      padding: '10px', 
+      backgroundColor: 'white',  // ← JUSTE le fond blanc
+      border: '1px solid #ddd', 
+      borderRadius: '5px' 
+    }}>
       {isEditing ? (
         <div>
           <textarea
             value={editContent}
-            onChange={(e) => setEditContent(e.target.value)} // Quand l'utilisateur tape, on met à jour le texte
+            onChange={(e) => setEditContent(e.target.value)}
             style={{ width: '100%', minHeight: '60px', marginBottom: '10px' }}
           />
           <button onClick={handleUpdate} style={{ marginRight: '10px' }}>Enregistrer</button>
-          <button onClick={() => setIsEditing(false)}>Annuler</button> {/* On annule et on sort du mode édition */}
+          <button onClick={() => setIsEditing(false)}>Annuler</button>
         </div>
       ) : (
-        // Sinon, on affiche le commentaire avec des boutons pour modifier ou supprimer
         <div>
           <div className="comment-content" style={{ marginBottom: '10px' }}>{comment.comment}</div>
           <div style={{ display: 'flex', gap: '10px' }}>

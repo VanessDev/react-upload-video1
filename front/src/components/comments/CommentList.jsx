@@ -77,7 +77,7 @@ function CommentList({ videoId }) {
   return (
     <div style={{ marginTop: '30px' }}>
       <h2 style={{ marginBottom: '20px' }}>
-        Commentaires ({comments.length}) {/* On affiche le nombre de commentaires */}
+        Commentaires ({comments.length})
       </h2>
       
       {/* Le formulaire pour ajouter un nouveau commentaire */}
@@ -86,7 +86,6 @@ function CommentList({ videoId }) {
         onCommentAdded={handleCommentAdded}
       />
 
-      {/* Si il n'y a pas de commentaires, on affiche un message */}
       {comments.length === 0 ? (
         <p style={{ color: '#666', fontStyle: 'italic' }}>
           Aucun commentaire pour le moment. Soyez le premier à commenter !
