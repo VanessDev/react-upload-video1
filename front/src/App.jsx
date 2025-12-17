@@ -19,7 +19,7 @@ function App() {
 
           <Route path="/video/:videoId" element={<VideoDetail/>}/>
           <Route path="/upload" element={<UploadVideo/>}/>
-          <Route path="/stream/:id" element={<Stream/>}/>
+          <Route path="/:id" element={<Stream/>}/>
         </Route>
       </Routes>
     </>
