@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import CommentList from '../comments/CommentList';
+
 
 // Cette page affiche les détails d'une vidéo et ses commentaires
 function VideoDetail() {
@@ -15,8 +15,6 @@ function VideoDetail() {
         <p>Informations de la vidéo à afficher ici...</p>
       </div>
 
-      {/* On affiche la liste des commentaires pour cette vidéo */}
-      <CommentList videoId={parseInt(videoId)} />
     </div>
   );
 }

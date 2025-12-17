@@ -2,7 +2,6 @@ import express from "express";
 import morgan from "morgan";
 import cors from "cors";
 import router from "./routes/index.js";
-import commentRoutes from "./routes/commentRoutes.js";
 import notFound from "./middlewares/notFound.js";
 
 const app = express();
@@ -20,9 +19,6 @@ app.get("/", (req, res) => {
 // routes API
 app.use("/api", router);
 
-// routes comments (si tu veux les séparer du router principal)
-app.use("/api", commentRoutes); 
-// (comme ça ça garde /comments, /comments/video/:videoId, etc)
 
 // 404 (TOUJOURS après les routes)
 app.use(notFound);
