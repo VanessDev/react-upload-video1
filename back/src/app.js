@@ -1,8 +1,16 @@
+
+const express = require('express');
+const cors = require('cors');
+const morgan = require('morgan');
+const commentRoutes = require('./routes/commentRoutes.js');
+
+
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
 import router from "./routes/index.js";
 import notFound from "./middlewares/notFound.js";
+
 
 const app = express();
 
@@ -36,4 +44,11 @@ app.use((err, req, res, next) => {
   return res.status(500).json({ error: "Erreur serveur", details: err.message });
 });
 
+
+app.use('/api/comments', commentRoutes);
+
+
+module.exports = app;
+
 export default app;
+
