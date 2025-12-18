@@ -53,23 +53,20 @@ function CommentForm({ videoId, onCommentAdded }) {
     // je ne sais pas comment le mettre en place dans la page avec un taiwindcss 
     
     return (
-        <form onSubmit={handleSubmit} className="comment-form" style={{ 
-          marginBottom: '20px',
-          padding: '15px',
-          backgroundColor: 'white',  // ← JUSTE le fond blanc
-          borderRadius: '5px'
-        }}>
-            <textarea
-                value={content}
-                onChange={(e) => setContent(e.target.value)}
-                placeholder="Ajouter un commentaire..."
-                required
-                style={{ width: '100%', minHeight: '80px', marginBottom: '10px' }}
-            />
-            <button type="submit" disabled={isSubmitting}>
-              {isSubmitting ? 'Envoi...' : 'Publier'}
-            </button>
+      <div>
+        <form onSubmit={handleSubmit} className="bg-white flex-col">
+          <textarea
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              placeholder="Ajouter un commentaire..."
+              required
+              className='textarea textarea-primary'
+          />
+          <button type="submit" disabled={isSubmitting} className='btn btn-primary btn-upload'>
+            {isSubmitting ? 'Envoi...' : 'Publier'}
+          </button>
         </form>
+      </div>  
     );
 }
 export default CommentForm;
