@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react"
 import { getStream } from "../../services/ApiVideos";
-import { useParams } from "react-router-dom";
-import { getVideoAverageRating } from "../../services/CommentService";
-// Import du composant CommentList pour afficher le formulaire de commentaires et la liste
+import { Link, useParams } from "react-router-dom";
 import CommentList from "../comments/CommentList";
 
 function Stream() {
@@ -60,37 +58,19 @@ function Stream() {
     return (
         <div className="page gap-[24px]">
             <h2 className="text-primary font-bold text-4xl">{video.title}</h2>
-            <video controls width="1000" src={`http://localhost:3000/api/video/${video.id}/stream`}></video>
-            <div style={{ width: '700px', backgroundColor: '#fff', padding: '15px', borderRadius: '5px', border: '1px solid #ddd', marginTop: '20px' }}>
-                <p style={{ color: '#333', marginBottom: '10px' }}>{video.theme}</p>
-                <p style={{ color: '#333', marginBottom: '15px' }}>{video.description}</p>
-                <div className="flex items-center gap-2">
-                    <div className="rating">
-                        {[1, 2, 3, 4, 5].map((star) => (
-                            <div
-                                key={star}
-                                className={`mask mask-star ${
-                                    averageRating && star <= Math.round(averageRating) ? 'opacity-100' : 'opacity-30'
-                                }`}
-                                style={{ backgroundColor: '#F4D211' }}
-                                aria-label={`${star} star`}
-                            />
-                        ))}
-                    </div>
-                    {averageRating !== null && (
-                        <span className="text-sm text-gray-700">
-                            {parseFloat(averageRating).toFixed(1)}/5 ({ratingCount} {ratingCount > 1 ? 'votes' : 'vote'})
-                        </span>
-                    )}
-                    {averageRating === null && ratingCount === 0 && (
-                        <span className="text-sm font-medium text-gray-700">Aucune note</span>
-                    )}
-                </div>
+            <video controls width="1000" src={`http://localhost:3000/api/video/${video.id}/stream`} className="h-[80vh]"></video>
+            <div className="w-full streamPage-description">
+                <p className="text-bold">{video.theme || "-"}</p>
+                <p className="text-left m-[10px]">{video.description}</p>
             </div>
-
-            {/* Section des commentaires : affiche le formulaire pour ajouter un commentaire avec notation 
-                et la liste de tous les commentaires de la vidéo */}
-            <CommentList videoId={id} />
+            <div className="rating">
+                <div className="mask mask-star bg-primary" aria-label="1 star"></div>
+                <div className="mask mask-star bg-primary" aria-label="2 star"></div>
+                <div className="mask mask-star bg-primary" aria-label="3 star" aria-current="true"></div>
+                <div className="mask mask-star bg-primary" aria-label="4 star"></div>
+                <div className="mask mask-star bg-primary" aria-label="5 star"></div>
+            </div>
+            <CommentList videoId={video.id} />
         </div>
     )
 }

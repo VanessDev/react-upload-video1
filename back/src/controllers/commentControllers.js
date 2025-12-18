@@ -18,7 +18,7 @@ export async function createComment(req, res) {
         message: "Le commentaire ne peut pas être vide",
         data: null,
       });
-    }
+    }  
 
     if (comment.length > COMMENT_CONFIG.MAX_LENGTH) {
       return res.status(400).json({

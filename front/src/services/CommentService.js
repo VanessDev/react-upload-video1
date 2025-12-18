@@ -1,17 +1,15 @@
-import { API_BASE_URL } from '../config/constants';
+import { API_BASE_URL } from "../config/constants";
 
 export async function addComment(videoId, comment, rating) {
   const response = await fetch(API_BASE_URL, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({
       comment: comment,
       video_id: videoId,
-      // envoyé la note si elle existe, sinon null
-      rating: rating || null
-    }) 
+    }),
   });
 
   const data = await response.json();
@@ -26,13 +24,13 @@ export async function getCommentsByVideo(videoId) {
 
 export async function updateComment(commentId, comment) {
   const response = await fetch(`${API_BASE_URL}/${commentId}`, {
-    method: 'PUT',
+    method: "PUT",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      comment: comment
-    })
+      comment: comment,
+    }),
   });
 
   const data = await response.json();
@@ -41,7 +39,7 @@ export async function updateComment(commentId, comment) {
 
 export async function deleteComment(commentId) {
   const response = await fetch(`${API_BASE_URL}/${commentId}`, {
-    method: 'DELETE'
+    method: "DELETE",
   });
 
   const data = await response.json();
