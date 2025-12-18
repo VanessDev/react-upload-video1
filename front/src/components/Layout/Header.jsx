@@ -6,7 +6,7 @@ function Header({ filters, setFilters }) {
     <header className="header">
       {/* Logo */}
       <div className="header-left">
-        <img src={logo} alt="logo" className="logo" />
+        <Link to="/"><img src={logo} alt="logo" className="logo" /></Link>
       </div>
 
       {/* Recherche */}

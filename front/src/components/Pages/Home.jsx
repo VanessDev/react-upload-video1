@@ -38,7 +38,7 @@ function Home() {
           <Link to={`/${v.id}`} key={v.id} className="video-link">
             <div className="video-card gap-[25px]">
               <h3 className="title-video-card font-bold">{v.title}</h3>
-
+              
               <video
                 controls
                 width="300"
@@ -56,7 +56,7 @@ function Home() {
                 </p>
               )}
 
-              <p className="video-card-description">{v.description}</p>
+              <p className="video-card-description ">{v.description}</p>
             </div>
           </Link>
         ))}

@@ -53,9 +53,8 @@ function CommentForm({ videoId, onCommentAdded }) {
     // je ne sais pas comment le mettre en place dans la page avec un taiwindcss 
     
     return (
-      <div className='page'>
         <div className='bg-white flex flex-col items-center justify-center gap-[20px] margin-[15px] p-[20px] section-form-comments rounded-[20px]'>
-          <h2 className="upload-title-page text-primary">Ajouter un commentaire</h2>
+          <h2 className="text-primary text-xl font-bold">Ajouter un commentaire</h2>
           <form onSubmit={handleSubmit} className="flex flex-col justify-center items-center gap-[24px]">
             <textarea
                 value={content}
@@ -69,7 +68,6 @@ function CommentForm({ videoId, onCommentAdded }) {
             </button>
           </form>
         </div>
-      </div> 
     );
 }
 export default CommentForm;

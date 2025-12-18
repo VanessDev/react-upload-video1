@@ -44,8 +44,10 @@ function Stream() {
         <div className="page gap-[24px]">
             <h2 className="text-primary font-bold text-4xl">{video.title}</h2>
             <video controls width="1000" src={`http://localhost:3000/api/video/${video.id}/stream`} className="h-[80vh]"></video>
-            <p>{video.theme}</p>
-            <p>{video.description}</p>
+            <div className="w-full streamPage-description">
+                <p className="text-bold">{video.theme || "-"}</p>
+                <p className="text-left m-[10px]">{video.description}</p>
+            </div>
             <div className="rating">
                 <div className="mask mask-star bg-primary" aria-label="1 star"></div>
                 <div className="mask mask-star bg-primary" aria-label="2 star"></div>
