@@ -71,53 +71,56 @@ function CommentForm({ videoId, onCommentAdded }) {
             />
 
         {/* Zone de notation avec des étoiles */}
-<div className="rating rating-sm mb-3">
+<div className="flex items-center gap-2 mb-3">
   {/* Petit texte pour inviter à noter */}
-  <span className="mr-2 text-sm">Notez la vidéo :</span>
+  <span className="text-sm text-gray-700 font-medium">Notez la vidéo :</span>
 
   {/* On affiche 5 étoiles */}
-  {[1, 2, 3, 4, 5].map((star) => (
-    <div
-      key={star}
-      // L’étoile est visible ou atténuée selon la note choisie
-      className={`mask mask-star bg-primary cursor-pointer ${
-        star <= rating ? 'opacity-100' : 'opacity-30'
-      }`}
-      aria-label={`${star} star`}
-      // Clic sur une étoile = on enregistre la note
-      onClick={() => setRating(star)}
-      // Au survol, on montre la note si rien n’est encore choisi
-      onMouseEnter={(e) => {
-        if (rating === 0) {
-          e.currentTarget.parentElement
-            .querySelectorAll('.mask-star')
-            .forEach((s, i) => {
-              if (i < star) s.classList.add('opacity-100');
-            });
-        }
-      }}
-      // Quand on quitte le survol, on remet l’affichage par défaut
-      onMouseLeave={(e) => {
-        if (rating === 0) {
-          e.currentTarget.parentElement
-            .querySelectorAll('.mask-star')
-            .forEach((s) => {
-              s.classList.remove('opacity-100');
-              s.classList.add('opacity-30');
-            });
-        }
-      }}
-    />
-  ))}
+  <div className="rating rating-sm">
+    {[1, 2, 3, 4, 5].map((star) => (
+      <div
+        key={star}
+        // L'étoile est visible ou atténuée selon la note choisie
+        className={`mask mask-star cursor-pointer ${
+          star <= rating ? 'opacity-100' : 'opacity-30'
+        }`}
+        style={{ backgroundColor: '#F4D211' }}
+        aria-label={`${star} star`}
+        // Clic sur une étoile = on enregistre la note
+        onClick={() => setRating(star)}
+        // Au survol, on montre la note si rien n'est encore choisi
+        onMouseEnter={(e) => {
+          if (rating === 0) {
+            e.currentTarget.parentElement
+              .querySelectorAll('.mask-star')
+              .forEach((s, i) => {
+                if (i < star) s.classList.add('opacity-100');
+              });
+          }
+        }}
+        // Quand on quitte le survol, on remet l'affichage par défaut
+        onMouseLeave={(e) => {
+          if (rating === 0) {
+            e.currentTarget.parentElement
+              .querySelectorAll('.mask-star')
+              .forEach((s) => {
+                s.classList.remove('opacity-100');
+                s.classList.add('opacity-30');
+              });
+          }
+        }}
+      />
+    ))}
+  </div>
 
   {/* Affiche la note une fois sélectionnée */}
   {rating > 0 && (
-    <span className="ml-2 text-sm text-gray-600">{rating}/5</span>
+    <span className="text-sm text-gray-700 font-medium">{rating}/5</span>
   )}
 </div>
 
 
-            <button type="submit" disabled={isSubmitting}>
+            <button type="submit" disabled={isSubmitting} style={{ fontSize: '12px', padding: '5px 10px', border: '1px solid #10b981', color: '#10b981', backgroundColor: 'transparent', borderRadius: '3px' }}>
               {isSubmitting ? 'Envoi...' : 'Publier'}
             </button>
         </form>
