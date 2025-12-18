@@ -4,6 +4,7 @@ import MainLayout from './components/Layout/MainLayout'
 import Home from './components/Pages/Home'
 import UploadVideo from './components/Pages/UploadVideo'
 import Stream from './components/Pages/Stream'
+import CommentForm from './components/comments/CommentForm'
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
           <Route path="/" element={<Home/>}/>
           <Route path="/upload" element={<UploadVideo/>}/>
           <Route path="/:id" element={<Stream/>}/>
+          <Route path='/comment' element={< CommentForm />}/>
         </Route>
       </Routes>
     </>
