@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { addComment } from '../../services/CommentService.js';
 import { COMMENT_CONFIG } from '../../config/constants.js';
+import Picker from 'emoji-picker-react'
+
 
 // Ce composant affiche un formulaire pour écrire et envoyer un commentaire
 function CommentForm({ videoId, onCommentAdded }) {
@@ -49,6 +51,12 @@ function CommentForm({ videoId, onCommentAdded }) {
       }
     };
     
+    const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+    const onEmojiClick = (event, emojiObject) => {
+      const emoji = emojiObject.emoji;
+      setContent(prev => prev + emoji);
+      setShowEmojiPicker(false); // Fermer le picker après sélection
+    };
     // On retourne le formulaire avec un champ de texte et un bouton mais 
     // je ne sais pas comment le mettre en place dans la page avec un taiwindcss 
     
@@ -67,6 +75,15 @@ function CommentForm({ videoId, onCommentAdded }) {
             <button type="submit" disabled={isSubmitting} className='btn btn-primary btn-upload'>
               {isSubmitting ? 'Envoi...' : 'Publier'}
             </button>
+            <button type="button" onClick={() => setShowEmojiPicker(!showEmojiPicker)} className='btn btn-emoji'>
+              😊
+            </button>
+            {showEmojiPicker && (
+              <Picker 
+                onEmojiClick={onEmojiClick}
+                pickerStyle={{ width: '100%' }}
+              />
+            )}
           </form>
         </div>
       </div> 
