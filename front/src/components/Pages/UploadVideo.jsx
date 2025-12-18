@@ -38,7 +38,7 @@ function UploadVideo() {
   return (
     <div className="page">
       <div className="upload-section">
-        <h2 className="upload-title-page">Ajouter votre vidéo</h2>
+        <h2 className="upload-title-page text-primary">Ajouter votre vidéo</h2>
         <p>
           Pour uploader votre fichier vidéo, vous devez respecter ces contraintes :
           vidéo entre 1 seconde et 1 minute, format mp4 et une taille maximum de 1gb.
@@ -47,17 +47,17 @@ function UploadVideo() {
         <form onSubmit={handleSubmit} className="upload-form">
           <div className="intem-form">
             <label htmlFor="video">Vidéo</label>
-            <input type="file" name="video" accept="video/*" required />
+            <input type="file" name="video" accept="video/*" required className="file-input file-input-primary"/>
           </div>
 
           <div className="intem-form">
             <label htmlFor="title">Titre de la vidéo</label>
-            <input type="text" name="title" placeholder="Saisisez le titre" required />
+            <input type="text" name="title" placeholder="Saisisez le titre" required className="input input-primary"/>
           </div>
 
           <div className="intem-form">
             <label htmlFor="theme">Thème</label>
-            <select name="theme" id="theme" required>
+            <select name="theme" id="theme" required className="select select-primary">
               <option value="">Choisir le thème de la vidéo</option>
               <option value="fantasy">Fantasy</option>
               <option value="nature">Nature</option>
@@ -66,10 +66,10 @@ function UploadVideo() {
 
           <div className="intem-form">
             <label htmlFor="description">Description</label>
-            <textarea name="description" placeholder="Description" />
+            <textarea name="description" placeholder="Description" className="textarea textarea-primary"/>
           </div>
 
-          <button className="btn-upload">Ajouter</button>
+          <button className="btn btn-primary btn-upload">Ajouter</button>
           {message && <p>{message}</p>}
         </form>
       </div>

@@ -34,19 +34,22 @@ function Home() {
 
     return(
         <div className="home-page">
-            <h2>Bienvenue sur VIADEO !</h2>
+            <h2 className="upload-title-page text-primary">Bienvenue sur VIADEO !</h2>
             <div>
                {error && <p>{error}</p>} 
             </div>
-            { videos.map((v) => (
-            <div className="video-card" key={v.id}>
-                <p className="title-video-card">{v.title}</p>
-                <video controls width="600" src={`http://localhost:3000/api/video/${v.id}/stream`} ></video>
-                <p className="video-card-description">{v.description}</p>
-                
-                <CommentList videoId={v.id} />
+            <div className="listCards">
+                { videos.map((v) => (
+                    <Link to={`/${v.id}`} key={v.id} className="video-link">   
+                        <div className="video-card gap-[25px]">
+                            <h3 className="title-video-card font-bold">{v.title}</h3>
+                            <video controls width="300" src={`http://localhost:3000/api/video/${v.id}/stream`} className="home-page-video"></video>
+                            <p>{v.theme}</p>
+                            <p className="video-card-description">{v.description}</p>
+                        </div>
+                    </Link>
+                ))}                
             </div>
-            ))}
         </div>
     )
 }
