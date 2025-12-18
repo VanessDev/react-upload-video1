@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "../../assets/style/Home.css";
 import { getVideosList } from "../../services/ApiVideos";
-import CommentList from "../comments/CommentList";
+import { Link } from "react-router-dom";
 
 function Home() {
 
