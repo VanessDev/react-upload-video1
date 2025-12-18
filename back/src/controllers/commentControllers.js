@@ -10,7 +10,7 @@ const COMMENT_CONFIG = {
 // CREATE
 export async function createComment(req, res) {
   try {
-    const { comment, video_id } = req.body;
+    const { comment, video_id, rating } = req.body;
 
     if (!comment || !comment.trim()) {
       return res.status(400).json({
@@ -53,6 +53,27 @@ export async function createComment(req, res) {
       "INSERT INTO comments (comment, video_id) VALUES (?, ?)",
       [comment.trim(), video_id]
     );
+
+
+    // Si une note est fournie, l'ajouter à la base de données (table notations)
+if (rating !== undefined && rating !== null) {
+  const ratingNum = parseInt(rating, 10);
+  
+  // Validation de la note (entre 1 et 5)
+  if (isNaN(ratingNum) || ratingNum < 1 || ratingNum > 5) {
+    return res.status(400).json({
+      success: false,
+      message: "La note doit être entre 1 et 5",
+      data: null,
+    });
+  }
+
+  // Toujours insérer une nouvelle note (plusieurs notes possibles par vidéo)
+  await pool.execute(
+    "INSERT INTO notations (notation, video_id) VALUES (?, ?)",
+    [ratingNum, video_id]
+  );
+}
 
     const [newComment] = await pool.execute(
       "SELECT * FROM comments WHERE id = ?",
@@ -209,6 +230,48 @@ export async function deleteComment(req, res) {
     return res.status(500).json({
       success: false,
       message: "Erreur lors de la suppression du commentaire",
+      data: null,
+    });
+  }
+}
+
+// Récupère la note moyenne et le nombre de notes d’une vidéo
+export async function getVideoAverageRating(req, res) {
+  try {
+    // ID de la vidéo depuis l’URL
+    const { videoId } = req.params;
+
+    // Requête SQL : moyenne des notes + nombre total
+    const [result] = await pool.execute(
+      "SELECT AVG(notation) as average, COUNT(*) as count FROM notations WHERE video_id = ?",
+      [videoId]
+    );
+
+    // Formatage de la moyenne (2 décimales) ou null si aucune note
+    const average = result[0].average
+      ? parseFloat(result[0].average).toFixed(2)
+      : null;
+
+    // Nombre de notes (0 par défaut)
+    const count = result[0].count || 0;
+
+    // Réponse en cas de succès
+    return res.status(200).json({
+      success: true,
+      message: "Moyenne récupérée avec succès",
+      data: {
+        average: average ? parseFloat(average) : null,
+        count: count,
+      },
+    });
+  } catch (error) {
+    // Log de l’erreur serveur
+    console.error("Erreur getVideoAverageRating:", error);
+
+    // Réponse en cas d’erreur
+    return res.status(500).json({
+      success: false,
+      message: "Erreur lors de la récupération de la moyenne",
       data: null,
     });
   }
