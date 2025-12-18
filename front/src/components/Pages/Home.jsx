@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "../../assets/style/Home.css";
 import { getVideosList } from "../../services/ApiVideos";
-import { Link } from "react-router-dom";
+import CommentList from "../comments/CommentList";
 
 function Home() {
 
@@ -50,7 +50,6 @@ function Home() {
                     </Link>
                 ))}                
             </div>
-
         </div>
     )
 }
