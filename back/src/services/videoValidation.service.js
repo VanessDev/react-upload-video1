@@ -18,7 +18,7 @@ export const createVideoSchema = z.object({
   title: z
   // Titre : obligatoire, string, min 1, max 255, trim pour éviter les espaces inutiles
     .string() //verifie que le titre est une string
-    .transform((val) => val.trim()) //supprime les espaces en début et en fin de string (on evite que " " soit accepté)
+    .trim() //supprime les espaces en début et en fin de string (on evite que " " soit accepté)
     .min(
       1, 
       { message: "Le titre est obligatoire" }
@@ -31,7 +31,7 @@ export const createVideoSchema = z.object({
   description: z
   // Description : optionnelle, string max 500, trim, autorise vide ou undefined
     .string()
-    .transform((val) => val.trim()) //evite des string qui ne contiennent que des espaces
+    .trim() //evite des string qui ne contiennent que des espaces
     .max(
       500, 
       { message: "La description ne doit pas dépasser 500 caractères",}
@@ -43,7 +43,7 @@ export const createVideoSchema = z.object({
   theme_id: z
   // theme_id : optionnel, envoyé comme string depuis le front, transformé en int ou null
     .string()
-    .transform((val) => val.trim())
+    .trim()
     .transform((val) => (val === "" ? null : parseInt(val, 10)))
     .refine(
       (val) => val === null || (!isNaN(val) && val > 0), // val doit etre soit null, soit un nombre entier positif
@@ -53,7 +53,7 @@ export const createVideoSchema = z.object({
 
     original_name: z
     .string()
-    .transform((val) => val.trim())
+    .trim()
     .min(1, { message: "Le nom original est obligatoire" })
     .max(255, { message: "Le nom original ne doit pas dépasser 255 caractères" })
     .refine(
