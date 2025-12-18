@@ -4,7 +4,9 @@ export async function getVideosList(filters = {}) {
   console.log("fonction getVideosList ok");
 
   if (!API_URL) {
-    throw new Error("VITE_API_URL est undefined (vérifie ton .env et redémarre Vite)");
+    throw new Error(
+      "VITE_API_URL est undefined (vérifie ton .env et redémarre Vite)"
+    );
   }
 
   const params = new URLSearchParams();

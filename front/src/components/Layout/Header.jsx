@@ -7,7 +7,6 @@ function Header({ filters, setFilters }) {
       {/* Logo */}
       <div className="header-left">
         <img src={logo} alt="logo" className="logo" />
-        <span className="brand">Viadeo</span>
       </div>
 
       {/* Recherche */}
@@ -66,10 +65,10 @@ function Header({ filters, setFilters }) {
 
       {/* Navigation */}
       <nav className="header-nav">
-        <Link to="/" className="nav-btn">
+        <Link to="/" className="btn-left ">
           Home
         </Link>
-        <Link to="/upload" className="nav-btn primary">
+        <Link to="/upload" className="btn-right">
           Ajouter une vidéo
         </Link>
       </nav>
