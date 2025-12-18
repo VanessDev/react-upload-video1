@@ -43,8 +43,8 @@
 //       });
 //     }
 
-//     return res.status(400).json({
-//       error: "Erreur de validation",
-//     });
-//   }
-// };
+    return res.status(400).json({
+      error: "Erreur de validation",
+    });
+  }
+};
