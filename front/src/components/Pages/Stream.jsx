@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { getStream } from "../../services/ApiVideos";
 import { useParams } from "react-router-dom";
+import CommentList from "../comments/CommentList";
 
 function Stream() {
     const {id} = useParams();
@@ -52,6 +53,7 @@ function Stream() {
                 <div className="mask mask-star bg-primary" aria-label="4 star"></div>
                 <div className="mask mask-star bg-primary" aria-label="5 star"></div>
             </div>
+            <CommentList videoId={video.id} />
         </div>
     )
 }
