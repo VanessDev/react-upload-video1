@@ -2,6 +2,16 @@ import { useState } from 'react';
 import { addComment } from '../../services/CommentService.js';
 import { COMMENT_CONFIG } from '../../config/constants.js';
 
+// Liste d'emojis populaires
+const popularEmojis = [
+  '😀', '😂', '❤️', '😍', '🤔', '😊', '👍', '👎',
+  '😎', '🥳', '😢', '😮', '😴', '🤗', '🙄', '😋',
+  '😉', '🤩', '😏', '😭', '😱', '😤', '🤯', '😇',
+  '🙏', '✌️', '👌', '🤞', '🤝', '💪', '🎉', '🔥',
+  '⭐', '💯', '✅', '❌', '💔', '💖', '💕', '💗'
+];
+
+
 // Ce composant affiche un formulaire pour écrire et envoyer un commentaire
 function CommentForm({ videoId, onCommentAdded }) {
     // On garde en mémoire le texte que l'utilisateur écrit dans le formulaire
@@ -52,6 +62,12 @@ function CommentForm({ videoId, onCommentAdded }) {
       }
     };
     
+    const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+    
+    const handleEmojiClick = (emoji) => {
+      setContent(prev => prev + emoji);
+      setShowEmojiPicker(false); // Fermer le picker après sélection
+    };
     // On retourne le formulaire avec un champ de texte et un bouton mais 
     // je ne sais pas comment le mettre en place dans la page avec un taiwindcss 
     
@@ -69,6 +85,63 @@ function CommentForm({ videoId, onCommentAdded }) {
             <button type="submit" disabled={isSubmitting} className='btn btn-primary btn-upload'>
               {isSubmitting ? 'Envoi...' : 'Publier'}
             </button>
+            <button 
+              type="button" 
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setShowEmojiPicker(!showEmojiPicker);
+              }} 
+              className='btn btn-emoji'
+            >
+              😊
+            </button>
+            {showEmojiPicker && (
+              <div 
+                style={{ 
+                  position: 'relative', 
+                  zIndex: 1000, 
+                  maxWidth: '100%', 
+                  marginTop: '10px',
+                  backgroundColor: 'white',
+                  border: '1px solid #ddd',
+                  borderRadius: '10px',
+                  padding: '15px',
+                  boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
+                }}
+              >
+                <div 
+                  style={{ 
+                    display: 'grid', 
+                    gridTemplateColumns: 'repeat(8, 1fr)', 
+                    gap: '8px',
+                    maxHeight: '200px',
+                    overflowY: 'auto'
+                  }}
+                >
+                  {popularEmojis.map((emoji, index) => (
+                    <button
+                      key={index}
+                      type="button"
+                      onClick={() => handleEmojiClick(emoji)}
+                      style={{
+                        fontSize: '24px',
+                        padding: '8px',
+                        border: 'none',
+                        backgroundColor: 'transparent',
+                        cursor: 'pointer',
+                        borderRadius: '5px',
+                        transition: 'background-color 0.2s'
+                      }}
+                      onMouseEnter={(e) => e.target.style.backgroundColor = '#f0f0f0'}
+                      onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
+                    >
+                      {emoji}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
           </form>
         </div>
     );
