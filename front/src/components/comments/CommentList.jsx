@@ -75,7 +75,7 @@ function CommentList({ videoId }) {
 
   // On affiche le formulaire pour ajouter un commentaire et la liste des commentaires
   return (
-    <div style={{ marginTop: '30px' }}>
+    <div style={{ marginTop: '30px', width: '700px' }}>
       <h2 style={{ marginBottom: '20px' }}>
         Commentaires ({comments.length})
       </h2>

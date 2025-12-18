@@ -1,6 +1,6 @@
 import { API_BASE_URL } from "../config/constants";
 
-export async function addComment(videoId, comment) {
+export async function addComment(videoId, comment, rating) {
   const response = await fetch(API_BASE_URL, {
     method: "POST",
     headers: {
@@ -42,6 +42,12 @@ export async function deleteComment(commentId) {
     method: "DELETE",
   });
 
+  const data = await response.json();
+  return data;
+}
+
+export async function getVideoAverageRating(videoId) {
+  const response = await fetch(`${API_BASE_URL}/video/${videoId}/average`);
   const data = await response.json();
   return data;
 }

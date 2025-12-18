@@ -8,6 +8,8 @@ function CommentForm({ videoId, onCommentAdded }) {
     const [content, setContent] = useState('');
     // On garde en mémoire si on est en train d'envoyer le commentaire (pour éviter de cliquer plusieurs fois)
     const [isSubmitting, setIsSubmitting] = useState(false);
+    // etat pour la note selectionnée
+    const [rating, setRating] = useState(0);
   
     // Cette fonction est appelée quand l'utilisateur clique sur "Publier"
     const handleSubmit = async (e) => {
@@ -29,11 +31,12 @@ function CommentForm({ videoId, onCommentAdded }) {
       setIsSubmitting(true);
       try {
         // On appelle le service pour envoyer le commentaire au serveur
-        const result = await addComment(videoId, content);
+        const result = await addComment(videoId, content, rating);
         
         // Si ça a marché, on vide le formulaire et on dit au parent qu'un nouveau commentaire a été ajouté
         if (result.success) {
           setContent(''); // On vide le champ de texte
+          setRating(0); //reintialiser la note
           onCommentAdded && onCommentAdded(result.data); // On informe le composant parent
         } else {
           // Si ça n'a pas marché, on affiche un message d'erreur

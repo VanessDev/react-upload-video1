@@ -4,22 +4,37 @@ import { Link, useParams } from "react-router-dom";
 import CommentList from "../comments/CommentList";
 
 function Stream() {
-    const {id} = useParams();
+    const { id } = useParams();
 
     const [video, setVideo] = useState(null);
     const [error, setError] = useState("");
+    // note moyenne de la video
+    const [averageRating, setAverageRating] = useState(null);
+    // nombre total de note
+    const [ratingCount, setRatingCount] = useState(0)
 
     async function getVideo() {
         console.log("fonction getVideo dans Stream.jsx ok");
         try {
 
             console.log("try ok");
-            
+
             const data = await getStream(id);
             console.log(data);
             console.log(data.video);
-            
             setVideo(data.video);
+
+            // Charger la moyenne des notes
+            try {
+                const ratingData = await getVideoAverageRating(id);
+                if (ratingData.success && ratingData.data) {
+                    setAverageRating(ratingData.data.average);
+                    setRatingCount(ratingData.data.count);
+                }
+            } catch (ratingError) {
+                console.error("Erreur lors du chargement de la moyenne:", ratingError);
+                // On ne bloque pas l'affichage de la vidéo si la moyenne échoue
+            }
 
         } catch (error) {
             console.error("Erreur serveur");
@@ -27,7 +42,7 @@ function Stream() {
         }
     }
 
-    useEffect(()=> {
+    useEffect(() => {
         if (!id) return;
         getVideo();
     }, [id])

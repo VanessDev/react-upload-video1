@@ -5,6 +5,7 @@ import {
   getCommentsByVideo,
   updateComment,
   deleteComment,
+  getVideoAverageRating,
 } from "../controllers/commentControllers.js";
 
 const router = express.Router();
@@ -14,6 +15,9 @@ router.get("/comments", getComments);
 
 // GET comments by video
 router.get("/comments/video/:videoId", getCommentsByVideo);
+
+// Obtenir la note moyenne d'une vidéo
+router.get("/comments/video/:videoId/average", getVideoAverageRating);
 
 // POST new comment
 router.post("/comments", createComment);
