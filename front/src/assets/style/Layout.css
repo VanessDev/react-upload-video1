@@ -1,3 +1,7 @@
+/******************************************************
+*********************** HEADER ************************
+******************************************************/
+
 .header {
   background-color: rgba(137, 0, 32, 0.9);
   padding: 12px 20px;
@@ -10,6 +14,13 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25);
 }
 
+/******************** LOGO ****************************/
+
+.logo {
+  width: 80px;
+  border-radius: 50%;
+}
+
 .header-left {
   display: flex;
   align-items: center;
@@ -17,11 +28,7 @@
   color: #fff;
 }
 
-.brand {
-  font-size: 18px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-}
+/******************** SEARCH ***************************/
 
 .header-center {
   display: flex;
@@ -79,63 +86,43 @@
   color: rgba(137, 0, 32, 1);
 }
 
+/************************** NAV ************************/
+
 .header-right {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-@media (max-width: 900px) {
-  .header {
-    grid-template-columns: 1fr;
-    gap: 10px;
-  }
-
-  .header-center {
-    justify-content: flex-start;
-  }
-
-  .header-search {
-    max-width: 100%;
-    flex-wrap: wrap;
-  }
-
-  .header-right {
-    justify-content: flex-end;
-  }
-}
-
 nav {
   display: flex;
-  background-color: aliceblue;
-  border-radius: 20px;
+  gap: 15px;
 }
 
 ul {
   display: flex;
 }
 
-.btn-left {
-  border-radius: 20px 0 0 20px;
-  border: 2px solid rgb(13, 133, 255);
+.btn {
   padding: 10px;
+}
+
+.nav-bar {
+  display: none;
+}
+
+/******************************************************
+*********************** MAIN **************************
+******************************************************/
+
+main {
   place-content: center;
   place-items: center;
 }
 
-.btn-right {
-  border-radius: 0 20px 20px 0;
-  border: 2px solid rgb(13, 133, 255);
-  padding: 10px;
-  place-content: center;
-  place-items: center;
-}
-
-.btn-left:hover,
-.btn-right:hover {
-  background-color: rgb(0, 128, 255);
-  color: rgb(255, 255, 255);
-}
+/******************************************************
+*********************** FOOTER ************************
+******************************************************/
 
 footer {
   background-color: rgba(104, 104, 104, 0.6);
@@ -143,14 +130,4 @@ footer {
   place-content: center;
   height: 100px;
   color: rgb(255, 255, 255);
-}
-
-main {
-  place-content: center;
-  place-items: center;
-}
-
-.logo {
-  width: 80px;
-  border-radius: 50%;
 }

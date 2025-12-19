@@ -1,0 +1,41 @@
+@media (max-width: 1000px) {
+  .header {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .header-center {
+    justify-content: flex-start;
+  }
+
+  .header-search {
+    max-width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .header-right {
+    justify-content: flex-end;
+  }
+
+  .btn-nav {
+    width: 50%;
+  }
+
+  main {
+    background-color: rgb(255, 255, 255);
+    width: 100%;
+  }
+
+  .upload-form {
+    width: 100%;
+  }
+
+  nav {
+    display: none;
+  }
+
+  .upload-form {
+    width: 100%;
+  }
+
+}

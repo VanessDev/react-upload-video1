@@ -58,7 +58,7 @@ function Stream() {
     }
 
     return (
-        <div className="page gap-[24px]">
+        <div className="page flex flex-col gap-[24px]">
             <h2 className="text-primary font-bold text-4xl">{video.title}</h2>
             <video controls width="1000" src={`http://localhost:3000/api/video/${video.id}/stream`} className="h-[80vh]"></video>
             <p className="text-left w-full m-8">{video.theme || "-" }</p>

@@ -36,8 +36,8 @@ function Home() {
       <div className="listCards">
         {videos.map((v) => (
           <Link to={`/${v.id}`} key={v.id} className="video-link">
-            <div className="video-card gap-[25px]">
-              <h3 className="title-video-card font-bold">{v.title}</h3>
+            <div className="video-card flex flex-col gap-[15px]">
+              <h3 className="title-video-card font-bold text-primary">{v.title}</h3>
               
               <video
                 controls

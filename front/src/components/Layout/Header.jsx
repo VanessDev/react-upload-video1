@@ -64,14 +64,19 @@ function Header({ filters, setFilters }) {
       </div>
 
       {/* Navigation */}
-      <nav className="header-nav">
-        <Link to="/" className="btn-left ">
+      <nav className="">
+        <Link to="/" className="btn btn-soft btn-primary w-[141px] btn-nav">
           Home
         </Link>
-        <Link to="/upload" className="btn-right">
+        <Link to="/upload" className="btn btn-soft btn-primary w-[141px] btn-nav">
           Ajouter une vidéo
         </Link>
       </nav>
+      <div className="flex-none nav-bar">
+        <button className="btn btn-square btn-ghost">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block h-5 w-5 stroke-current"> <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path> </svg>
+        </button>
+      </div>
     </header>
   );
 }
