@@ -18,7 +18,7 @@ export async function createComment(req, res) {
         message: "Le commentaire ne peut pas être vide",
         data: null,
       });
-    }  
+    }
 
     if (comment.length > COMMENT_CONFIG.MAX_LENGTH) {
       return res.status(400).json({
@@ -54,17 +54,24 @@ export async function createComment(req, res) {
       [comment.trim(), video_id]
     );
 
-
-    // ANNOTATIONS : Gestion de la note (optionnelle)
+    // Si une note est fournie, l'ajouter à la base de données (table notations)
     if (rating !== undefined && rating !== null) {
       const ratingNum = parseInt(rating, 10);
-      // Validation : note entre 1 et 5
-      if (ratingNum >= 1 && ratingNum <= 5) {
-        await pool.execute(
-          "INSERT INTO notations (notation, video_id) VALUES (?, ?)",
-          [ratingNum, video_id]
-        );
+
+      // Validation de la note (entre 1 et 5)
+      if (isNaN(ratingNum) || ratingNum < 1 || ratingNum > 5) {
+        return res.status(400).json({
+          success: false,
+          message: "La note doit être entre 1 et 5",
+          data: null,
+        });
       }
+
+      // Toujours insérer une nouvelle note (plusieurs notes possibles par vidéo)
+      await pool.execute(
+        "INSERT INTO notations (notation, video_id) VALUES (?, ?)",
+        [ratingNum, video_id]
+      );
     }
 
     const [newComment] = await pool.execute(

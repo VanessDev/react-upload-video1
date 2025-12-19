@@ -15,7 +15,7 @@ router.get("/test", testController);
 // READ : liste des vidéos
 router.get("/", listVideosController);
 
-// STREAM (mets-le AVANT /:id)
+// STREAM 
 router.get("/:id/stream", streamVideoController);
 
 // READ : une seule vidéo

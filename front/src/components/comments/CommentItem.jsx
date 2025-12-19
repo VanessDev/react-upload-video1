@@ -54,7 +54,7 @@ function CommentItem({ comment, onCommentUpdated, onCommentDeleted, videoId }) {
     <div className="comment-item" style={{ 
       marginBottom: '15px', 
       padding: '10px', 
-      backgroundColor: 'white',  // ← JUSTE le fond blanc
+      backgroundColor: 'white',  
       border: '1px solid #ddd', 
       borderRadius: '5px' 
     }}>
@@ -71,10 +71,10 @@ function CommentItem({ comment, onCommentUpdated, onCommentDeleted, videoId }) {
       ) : (
         <div>
           <div className="comment-content" style={{ marginBottom: '10px' }}>{comment.comment}</div>
-          <div style={{ display: 'flex', gap: '10px' }}>
+          {/* <div style={{ display: 'flex', gap: '10px' }}>
             <button onClick={() => setIsEditing(true)} style={{ fontSize: '12px', padding: '5px 10px', border: '1px solid #03023E', color: '#03023E', backgroundColor: 'transparent', borderRadius: '3px' }}>Modifier</button>
             <button onClick={handleDelete} style={{ fontSize: '12px', padding: '5px 10px', backgroundColor: '#ff4444', color: 'white', border: 'none', borderRadius: '3px' }}>Supprimer</button>
-          </div>
+          </div> */}
         </div>
       )}
     </div>
