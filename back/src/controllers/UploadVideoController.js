@@ -26,7 +26,7 @@ export async function uploadVideoController(req, res) {
         : req.file.mimetype;
 
     // Données formulaire
-    const { title, description } = req.body;
+    const { title, description, theme } = req.body;
 
     //  Insertion en base de données
     const [result] = await pool.execute(
@@ -46,13 +46,25 @@ export async function uploadVideoController(req, res) {
       ]
     );
 
+    const videoId = result.insertId;
+
+    if (theme && theme.trim() !== "") {
+      await pool.execute(
+        `
+        INSERT INTO theme (name, video_id)
+        VALUES (?,?) `,
+        [theme.trim(), videoId]
+      );
+    }
+
     // Réponse OK
     return res.status(201).json({
       message: "Vidéo uploadée avec succès",
       video: {
-        id: result.insertId,
+        id: videoId,
         title,
         description,
+        theme,
         filename: req.file.filename,
         original_name: req.file.originalname,
         mime_type: correctedMime,
