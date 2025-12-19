@@ -132,7 +132,7 @@ function CommentForm({ videoId, onCommentAdded }) {
               )}
             </div>
 
-            <button type="submit" disabled={isSubmitting} style={{ fontSize: '12px', padding: '5px 10px', border: '1px solid #10b981', color: '#10b981', backgroundColor: 'transparent', borderRadius: '3px' }}>
+            <button type="submit" disabled={isSubmitting} className='btn btn-primary'>
               {isSubmitting ? 'Envoi...' : 'Publier'}
             </button>
             <button 
@@ -148,41 +148,25 @@ function CommentForm({ videoId, onCommentAdded }) {
             </button>
             {showEmojiPicker && (
               <div 
-                style={{ 
-                  position: 'relative', 
-                  zIndex: 1000, 
-                  maxWidth: '100%', 
-                  marginTop: '10px',
-                  backgroundColor: 'white',
-                  border: '1px solid #ddd',
-                  borderRadius: '10px',
-                  padding: '15px',
-                  boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
-                }}
+                // style={{ 
+                //   position: 'relative', 
+                //   zIndex: 1000, 
+                //   maxWidth: '100%', 
+                //   marginTop: '10px',
+                //   backgroundColor: 'white',
+                //   border: '1px solid #ddd',
+                //   borderRadius: '10px',
+                //   padding: '15px',
+                //   boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
+                // }}
               >
-                <div 
-                  style={{ 
-                    display: 'grid', 
-                    gridTemplateColumns: 'repeat(8, 1fr)', 
-                    gap: '8px',
-                    maxHeight: '200px',
-                    overflowY: 'auto'
-                  }}
-                >
+                <div className='grid grid-cols-[repeat(8, 1fr)] gap-[8px] max-h-[200px] overflow-y-auto'>
                   {popularEmojis.map((emoji, index) => (
                     <button
                       key={index}
                       type="button"
                       onClick={() => handleEmojiClick(emoji)}
-                      style={{
-                        fontSize: '24px',
-                        padding: '8px',
-                        border: 'none',
-                        backgroundColor: 'transparent',
-                        cursor: 'pointer',
-                        borderRadius: '5px',
-                        transition: 'background-color 0.2s'
-                      }}
+                      className='btn btn-primary'
                       onMouseEnter={(e) => e.target.style.backgroundColor = '#f0f0f0'}
                       onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
                     >

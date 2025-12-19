@@ -61,9 +61,9 @@ function Stream() {
         <div className="page gap-[24px]">
             <h2 className="text-primary font-bold text-4xl">{video.title}</h2>
             <video controls width="1000" src={`http://localhost:3000/api/video/${video.id}/stream`} className="h-[80vh]"></video>
-            <div style={{ width: '700px', backgroundColor: '#fff', padding: '15px', borderRadius: '5px', border: '1px solid #ddd', marginTop: '20px' }}>
-                <p style={{ color: '#333', marginBottom: '10px' }}>{video.theme}</p>
-                <p style={{ color: '#333', marginBottom: '15px' }}>{video.description}</p>
+            <div>
+                <p>{video.theme}</p>
+                <p>{video.description}</p>
                 <div className="flex items-center gap-2">
                     <div className="rating">
                         {[1, 2, 3, 4, 5].map((star) => (
