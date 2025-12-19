@@ -1,6 +1,13 @@
 import { API_BASE_URL } from "../config/constants";
 
+// ANNOTATIONS : Créer un commentaire avec note optionnelle
 export async function addComment(videoId, comment, rating) {
+  const donnees = {
+    comment: comment,
+    video_id: videoId,
+    rating: rating || null // Note optionnelle (1-5 ou null)
+  };
+
   const response = await fetch(API_BASE_URL, {
     method: "POST",
     headers: {
@@ -13,8 +20,7 @@ export async function addComment(videoId, comment, rating) {
     }),
   });
 
-  const data = await response.json();
-  return data;
+  return await response.json();
 }
 
 export async function getCommentsByVideo(videoId) {
@@ -47,8 +53,8 @@ export async function deleteComment(commentId) {
   return data;
 }
 
+// ANNOTATIONS : Récupérer la moyenne des notes d'une vidéo
 export async function getVideoAverageRating(videoId) {
   const response = await fetch(`${API_BASE_URL}/video/${videoId}/average`);
-  const data = await response.json();
-  return data;
+  return await response.json();
 }

@@ -14,11 +14,14 @@ const popularEmojis = [
 
 // Ce composant affiche un formulaire pour écrire et envoyer un commentaire
 function CommentForm({ videoId, onCommentAdded }) {
+    // ============================================
+    // ÉTATS (variables qui changent dans le composant)
+    // ============================================
     // On garde en mémoire le texte que l'utilisateur écrit dans le formulaire
     const [content, setContent] = useState('');
     // On garde en mémoire si on est en train d'envoyer le commentaire (pour éviter de cliquer plusieurs fois)
     const [isSubmitting, setIsSubmitting] = useState(false);
-    // etat pour la note selectionnée
+    // ANNOTATIONS : État pour la note choisie (0 = aucune, 1-5 = nombre d'étoiles)
     const [rating, setRating] = useState(0);
   
     // Cette fonction est appelée quand l'utilisateur clique sur "Publier"
@@ -40,13 +43,15 @@ function CommentForm({ videoId, onCommentAdded }) {
       // On dit qu'on est en train d'envoyer le commentaire
       setIsSubmitting(true);
       try {
-        // On appelle le service pour envoyer le commentaire au serveur
-        const result = await addComment(videoId, content, rating);
+        // ANNOTATIONS : Envoyer la note si elle a été choisie (sinon null)
+        const noteAEnvoyer = rating > 0 ? rating : null;
+        const result = await addComment(videoId, content, noteAEnvoyer);
         
         // Si ça a marché, on vide le formulaire et on dit au parent qu'un nouveau commentaire a été ajouté
         if (result.success) {
-          setContent(''); // On vide le champ de texte
-          setRating(0); //reintialiser la note
+          setContent('');
+          // ANNOTATIONS : Réinitialiser la note après l'envoi
+          setRating(0);
           onCommentAdded && onCommentAdded(result.data); // On informe le composant parent
         } else {
           // Si ça n'a pas marché, on affiche un message d'erreur

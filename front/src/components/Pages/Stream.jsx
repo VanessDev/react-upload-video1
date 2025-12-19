@@ -10,9 +10,9 @@ function Stream() {
 
     const [video, setVideo] = useState(null);
     const [error, setError] = useState("");
-    // note moyenne de la video
+    // ANNOTATIONS : Note moyenne de la vidéo
     const [averageRating, setAverageRating] = useState(null);
-    // nombre total de note
+    // ANNOTATIONS : Nombre total de votes
     const [ratingCount, setRatingCount] = useState(0)
 
     async function getVideo() {
@@ -26,7 +26,7 @@ function Stream() {
             console.log(data.video);
             setVideo(data.video);
 
-            // Charger la moyenne des notes
+            // ANNOTATIONS : Charger la moyenne des notes
             try {
                 const ratingData = await getVideoAverageRating(id);
                 if (ratingData.success && ratingData.data) {
@@ -35,7 +35,6 @@ function Stream() {
                 }
             } catch (ratingError) {
                 console.error("Erreur lors du chargement de la moyenne:", ratingError);
-                // On ne bloque pas l'affichage de la vidéo si la moyenne échoue
             }
 
         } catch (error) {
@@ -66,23 +65,23 @@ function Stream() {
                 <p className="text-left w-full">{video.description}</p>
                 <div className="flex items-center gap-2 flex-col">
                     <div className="rating">
-                        {[1, 2, 3, 4, 5].map((star) => (
-                            <div
-                                key={star}
-                                className={`mask mask-star ${
-                                    averageRating && star <= Math.round(averageRating) ? 'opacity-100' : 'opacity-30'
-                                }`}
-                                style={{ backgroundColor: '#F4D211' }}
-                                aria-label={`${star} star`}
-                            />
-                        ))}
+                        {[1, 2, 3, 4, 5].map((star) => {
+                            const moyenneArrondie = averageRating ? Math.round(averageRating) : 0;
+                            const estPleine = star <= moyenneArrondie;
+                            return (
+                                <div
+                                    key={star}
+                                    className={`mask mask-star ${estPleine ? 'opacity-100' : 'opacity-30'}`}
+                                    style={{ backgroundColor: '#F4D211' }}
+                                />
+                            );
+                        })}
                     </div>
-                    {averageRating !== null && (
+                    {averageRating !== null ? (
                         <span className="text-sm text-gray-700">
-                            {parseFloat(averageRating).toFixed(1)}/5 ({ratingCount} {ratingCount > 1 ? 'votes' : 'vote'})
+                            {averageRating.toFixed(1)}/5 ({ratingCount} {ratingCount > 1 ? 'votes' : 'vote'})
                         </span>
-                    )}
-                    {averageRating === null && ratingCount === 0 && (
+                    ) : (
                         <span className="text-sm text-gray-700 font-medium">Aucune note</span>
                     )}
                 </div>
