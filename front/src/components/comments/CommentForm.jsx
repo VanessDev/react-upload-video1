@@ -73,7 +73,13 @@ function CommentForm({ videoId, onCommentAdded }) {
     
     return (
         <div className='bg-white flex flex-col items-center justify-center gap-[20px] margin-[15px] p-[20px] section-form-comments rounded-[20px]'>
+
+          {/* Titre du formulairte */}
+
           <h2 className="text-primary text-xl font-bold">Ajouter un commentaire</h2>
+
+          {/* Formulaire */}
+
           <form onSubmit={handleSubmit} className="flex flex-col justify-center items-center gap-[24px]">
             <textarea
                 value={content}
@@ -82,100 +88,94 @@ function CommentForm({ videoId, onCommentAdded }) {
                 required
                 className='textarea textarea-primary'
             />
+            <div className='flex justify-center items-center gap-[20px]'>
+              <div>
+                {/* Zone de notation avec des étoiles */}
+                <div className="flex items-center gap-2 mb-3">
+                  {/* Petit texte pour inviter à noter */}
+                  <span className="text-sm text-gray-700 font-medium">Notez la vidéo :</span>
 
-            {/* Zone de notation avec des étoiles */}
-            <div className="flex items-center gap-2 mb-3">
-              {/* Petit texte pour inviter à noter */}
-              <span className="text-sm text-gray-700 font-medium">Notez la vidéo :</span>
+                  {/* On affiche 5 étoiles */}
+                  <div className="rating rating-sm">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <div
+                        key={star}
+                        // L'étoile est visible ou atténuée selon la note choisie
+                        className={`mask mask-star cursor-pointer ${
+                          star <= rating ? 'opacity-100' : 'opacity-30'
+                        }`}
+                        style={{ backgroundColor: '#F4D211' }}
+                        aria-label={`${star} star`}
+                        // Clic sur une étoile = on enregistre la note
+                        onClick={() => setRating(star)}
+                        // Au survol, on montre la note si rien n'est encore choisi
+                        onMouseEnter={(e) => {
+                          if (rating === 0) {
+                            e.currentTarget.parentElement
+                              .querySelectorAll('.mask-star')
+                              .forEach((s, i) => {
+                                if (i < star) s.classList.add('opacity-100');
+                              });
+                          }
+                        }}
+                        // Quand on quitte le survol, on remet l'affichage par défaut
+                        onMouseLeave={(e) => {
+                          if (rating === 0) {
+                            e.currentTarget.parentElement
+                              .querySelectorAll('.mask-star')
+                              .forEach((s) => {
+                                s.classList.remove('opacity-100');
+                                s.classList.add('opacity-30');
+                              });
+                          }
+                        }}
+                      />
+                    ))}
+                  </div>
 
-              {/* On affiche 5 étoiles */}
-              <div className="rating rating-sm">
-                {[1, 2, 3, 4, 5].map((star) => (
-                  <div
-                    key={star}
-                    // L'étoile est visible ou atténuée selon la note choisie
-                    className={`mask mask-star cursor-pointer ${
-                      star <= rating ? 'opacity-100' : 'opacity-30'
-                    }`}
-                    style={{ backgroundColor: '#F4D211' }}
-                    aria-label={`${star} star`}
-                    // Clic sur une étoile = on enregistre la note
-                    onClick={() => setRating(star)}
-                    // Au survol, on montre la note si rien n'est encore choisi
-                    onMouseEnter={(e) => {
-                      if (rating === 0) {
-                        e.currentTarget.parentElement
-                          .querySelectorAll('.mask-star')
-                          .forEach((s, i) => {
-                            if (i < star) s.classList.add('opacity-100');
-                          });
-                      }
-                    }}
-                    // Quand on quitte le survol, on remet l'affichage par défaut
-                    onMouseLeave={(e) => {
-                      if (rating === 0) {
-                        e.currentTarget.parentElement
-                          .querySelectorAll('.mask-star')
-                          .forEach((s) => {
-                            s.classList.remove('opacity-100');
-                            s.classList.add('opacity-30');
-                          });
-                      }
-                    }}
-                  />
-                ))}
-              </div>
-
-              {/* Affiche la note une fois sélectionnée */}
-              {rating > 0 && (
-                <span className="text-sm text-gray-700 font-medium">{rating}/5</span>
-              )}
-            </div>
-
-            <button type="submit" disabled={isSubmitting} className='btn btn-primary'>
-              {isSubmitting ? 'Envoi...' : 'Publier'}
-            </button>
-            <button 
-              type="button" 
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                setShowEmojiPicker(!showEmojiPicker);
-              }} 
-              className='btn btn-emoji'
-            >
-              😊
-            </button>
-            {showEmojiPicker && (
-              <div 
-                // style={{ 
-                //   position: 'relative', 
-                //   zIndex: 1000, 
-                //   maxWidth: '100%', 
-                //   marginTop: '10px',
-                //   backgroundColor: 'white',
-                //   border: '1px solid #ddd',
-                //   borderRadius: '10px',
-                //   padding: '15px',
-                //   boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
-                // }}
-              >
-                <div className='grid grid-cols-[repeat(8, 1fr)] gap-[8px] max-h-[200px] overflow-y-auto'>
-                  {popularEmojis.map((emoji, index) => (
-                    <button
-                      key={index}
-                      type="button"
-                      onClick={() => handleEmojiClick(emoji)}
-                      className='btn btn-primary'
-                      onMouseEnter={(e) => e.target.style.backgroundColor = '#f0f0f0'}
-                      onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
-                    >
-                      {emoji}
-                    </button>
-                  ))}
+                  {/* Affiche la note une fois sélectionnée */}
+                  {rating > 0 && (
+                    <span className="text-sm text-gray-700 font-medium">{rating}/5</span>
+                  )}
                 </div>
               </div>
-            )}
+              <div>
+                <button 
+                  type="button" 
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation(); 
+                    setShowEmojiPicker(!showEmojiPicker); 
+                  }}
+                  className='btn btn-emoji w-[50px]'>
+                    😊 
+                </button>
+                <div className='relative z-1000'>
+                  {showEmojiPicker && (
+                    <div className='absolite z-1000 max-w-[100%] mt-[10px] bg-[rgb(255, 255, 255)] border-[1px solid #ddd] rounded-[10px] p-[15px] shadow-[0 4px 6px rgba(0,0,0,0.1)]'>
+                      <div className='grid grid-cols-8 gap-[8px] max-h-[200px] overflow-y-auto'>
+                        {popularEmojis.map((emoji, index) => (
+                          <button
+                            key={index}
+                            type="button"
+                            onClick={() => handleEmojiClick(emoji)}
+                            className='text-[24px] p-[8px] border-none bg-transparent cursor-pointer rounded-[5px] transition  delay-[0.2s]'
+                            onMouseEnter={(e) => e.target.style.backgroundColor = '#f0f0f0'}
+                            onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
+                          >
+                            {emoji}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}  
+                </div>            
+              </div>
+            </div>
+            <button type="submit" disabled={isSubmitting} className='btn btn-primary w-[100px]'>
+              {isSubmitting ? 'Envoi...' : 'Publier'}
+            </button>
+
           </form>
         </div>
     );

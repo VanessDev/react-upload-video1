@@ -61,10 +61,10 @@ function Stream() {
         <div className="page gap-[24px]">
             <h2 className="text-primary font-bold text-4xl">{video.title}</h2>
             <video controls width="1000" src={`http://localhost:3000/api/video/${video.id}/stream`} className="h-[80vh]"></video>
-            <div>
-                <p>{video.theme}</p>
-                <p>{video.description}</p>
-                <div className="flex items-center gap-2">
+            <p className="text-left w-full m-8">{video.theme || "-" }</p>
+            <div className="text-left w-full flex gap-10 m-[20px]">    
+                <p className="text-left w-full">{video.description}</p>
+                <div className="flex items-center gap-2 flex-col">
                     <div className="rating">
                         {[1, 2, 3, 4, 5].map((star) => (
                             <div
