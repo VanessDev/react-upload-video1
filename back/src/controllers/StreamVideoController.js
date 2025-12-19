@@ -19,7 +19,9 @@ export async function streamVideoController(req, res) {
 
     // 2) On vérifie que le fichier existe sur le serveur
     if (!videoPath || !fs.existsSync(videoPath)) {
-      return res.status(404).json({ error: "Fichier vidéo introuvable sur le serveur" });
+      return res
+        .status(404)
+        .json({ error: "Fichier vidéo introuvable sur le serveur" });
     }
 
     const stat = fs.statSync(videoPath);
@@ -57,14 +59,12 @@ export async function streamVideoController(req, res) {
     });
 
     return fs.createReadStream(videoPath).pipe(res);
-
   } catch (error) {
-
     console.error("streamVideoController error:", error);
-    
+
     return res.status(500).json({
       error: "Erreur serveur",
-      details: error.message
+      details: error.message,
     });
   }
 }

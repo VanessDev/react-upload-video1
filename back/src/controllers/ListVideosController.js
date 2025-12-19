@@ -4,55 +4,77 @@ export async function listVideosController(req, res) {
   try {
     const { title, theme, note, date } = req.query;
 
-    const where = [];
-    const params = [];
-
-    if (title) {
-      where.push("v.title LIKE ?");
-      params.push(`%${title}%`);
-    }
-
-    if (theme) {
-      where.push("t.name = ?");
-      params.push(theme);
-    }
-
-    if (date) {
-      where.push("DATE(v.created_at) = ?");
-      params.push(date);
-    }
-
-    const whereSql = where.length ? `WHERE ${where.join(" AND ")}` : "";
-
-    const havingSql = note
-      ? "HAVING COALESCE(AVG(n.notation), 0) >= ?"
-      : "";
-
-    const sql = `
+    let sql = `
       SELECT 
         v.id,
         v.title,
         v.description,
         v.created_at,
-        COALESCE(AVG(n.notation), 0) AS avg_note,
-        t.name AS theme
+
+        -- moyenne des notes (sans GROUP BY)
+        (
+          SELECT AVG(n.notation)
+          FROM notations n
+          WHERE n.video_id = v.id
+        ) AS avg_note,
+
+        -- thème (1 seul thème par vidéo)
+        (
+          SELECT t.name
+          FROM theme t
+          WHERE t.video_id = v.id
+          LIMIT 1
+        ) AS theme
+
       FROM videos v
-      LEFT JOIN notations n ON n.video_id = v.id
-      LEFT JOIN theme t ON t.video_id = v.id
-      ${whereSql}
-      GROUP BY v.id, t.name
-      ${havingSql}
-      ORDER BY v.created_at DESC
+      WHERE 1 = 1
     `;
 
-    if (note) params.push(Number(note));
+    const params = [];
+
+    // recherche par titre
+    if (title) {
+      sql += " AND v.title LIKE ?";
+      params.push(`%${title}%`);
+    }
+
+    // recherche par date (YYYY-MM-DD)
+    if (date) {
+      sql += " AND DATE(v.created_at) = ?";
+      params.push(date);
+    }
+
+    // filtre thème (via sous requête)
+    if (theme) {
+      sql += `
+        AND EXISTS (
+          SELECT 1 FROM theme t
+          WHERE t.video_id = v.id AND t.name = ?
+        )
+      `;
+      params.push(theme);
+    }
+
+    // filtre note minimale (via sous requête)
+    if (note) {
+      sql += `
+        AND (
+          SELECT AVG(n.notation)
+          FROM notations n
+          WHERE n.video_id = v.id
+        ) >= ?
+      `;
+      params.push(Number(note));
+    }
+
+    sql += " ORDER BY v.created_at DESC";
 
     const [rows] = await pool.execute(sql, params);
 
-    res.status(200).json({ videos: rows });
+    return res.status(200).json({ videos: rows });
   } catch (error) {
     console.error("listVideosController error:", error);
-    res.status(500).json({
+    return res.status(500).json({
       error: "Erreur serveur",
       details: error.message,
     });
