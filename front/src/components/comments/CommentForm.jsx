@@ -139,7 +139,7 @@ function CommentForm({ videoId, onCommentAdded }) {
                   )}
                 </div>
               </div>
-              <div>
+              <div className='relative'>
                 <button 
                   type="button" 
                   onClick={(e) => {
