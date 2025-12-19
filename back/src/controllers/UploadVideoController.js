@@ -1,10 +1,7 @@
 import path from "path";
 import { pool } from "../db/pool.js";
 
-/**
- * POST /api/video
- * Upload d'une vidéo + insertion en base de données
- */
+
 export async function uploadVideoController(req, res) {
   try {
     // 1️Vérification fichier
@@ -81,9 +78,7 @@ export async function uploadVideoController(req, res) {
   }
 }
 
-/**
- * GET /api/video/test
- */
+
 export function testController(req, res) {
   return res.json({
     ok: true,
