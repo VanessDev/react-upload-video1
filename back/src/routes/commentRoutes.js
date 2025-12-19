@@ -16,7 +16,7 @@ router.get("/comments", getComments);
 // GET comments by video
 router.get("/comments/video/:videoId", getCommentsByVideo);
 
-// Obtenir la note moyenne d'une vidéo
+// ANNOTATIONS : Obtenir la note moyenne d'une vidéo
 router.get("/comments/video/:videoId/average", getVideoAverageRating);
 
 // POST new comment
