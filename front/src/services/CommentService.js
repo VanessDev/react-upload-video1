@@ -9,7 +9,7 @@ export async function addComment(videoId, comment, rating) {
     body: JSON.stringify({
       comment: comment,
       video_id: videoId,
-      rating: rating || null  // Envoyer la note si elle existe
+      rating: rating || null, // Envoyer la note si elle existe
     }),
   });
 

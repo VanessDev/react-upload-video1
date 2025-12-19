@@ -1,8 +1,24 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getThemes } from "../../services/ApiThemes";
 import "../../assets/style/UploadPage.css";
 
 function UploadVideo() {
   const [message, setMessage] = useState("");
+  const [themes, setThemes] = useState([]);
+
+  // Charger les thèmes au chargement de la page
+  useEffect(() => {
+    async function fetchThemes() {
+      try {
+        const data = await getThemes();
+        setThemes(data);
+      } catch (error) {
+        console.error("Erreur chargement thèmes:", error);
+      }
+    }
+
+    fetchThemes();
+  }, []);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -12,12 +28,10 @@ function UploadVideo() {
 
     const formData = new FormData(e.target);
 
-   
     try {
       const response = await fetch("http://localhost:3000/api/video", {
-        method: "POST",     
-        body: formData,    
-      
+        method: "POST",
+        body: formData,
       });
 
       const data = await response.json();
@@ -25,7 +39,7 @@ function UploadVideo() {
 
       if (response.ok) {
         setMessage("Vidéo uploadée avec succès");
-        e.target.reset(); //reset du formulaire
+        e.target.reset();
       } else {
         setMessage(data.error || "Erreur upload");
       }
@@ -40,33 +54,60 @@ function UploadVideo() {
       <div className="upload-section">
         <h2 className="upload-title-page text-primary">Ajouter votre vidéo</h2>
         <p>
-          Pour uploader votre fichier vidéo, vous devez respecter ces contraintes :
-          vidéo entre 1 seconde et 1 minute, format mp4 et une taille maximum de 1gb.
+          Pour uploader votre fichier vidéo, vous devez respecter ces
+          contraintes : vidéo entre 1 seconde et 1 minute, format mp4 et une
+          taille maximum de 1gb.
         </p>
 
         <form onSubmit={handleSubmit} className="upload-form">
           <div className="intem-form">
             <label htmlFor="video">Vidéo</label>
-            <input type="file" name="video" accept="video/*" required className="file-input file-input-primary"/>
+            <input
+              type="file"
+              name="video"
+              accept="video/*"
+              required
+              className="file-input file-input-primary"
+            />
           </div>
 
           <div className="intem-form">
             <label htmlFor="title">Titre de la vidéo</label>
-            <input type="text" name="title" placeholder="Saisisez le titre" required className="input input-primary"/>
+            <input
+              type="text"
+              name="title"
+              placeholder="Saisisez le titre"
+              required
+              className="input input-primary"
+            />
           </div>
 
           <div className="intem-form">
             <label htmlFor="theme">Thème</label>
-            <select name="theme" id="theme" required className="select select-primary">
+            <select
+              name="theme"
+              id="theme"
+              required
+              className="select select-primary"
+              defaultValue=""
+            >
               <option value="">Choisir le thème de la vidéo</option>
-              <option value="fantasy">Fantasy</option>
-              <option value="nature">Nature</option>
+
+              {themes.map((t) => (
+                <option key={t.id} value={t.name}>
+                  {t.name}
+                </option>
+              ))}
             </select>
           </div>
 
           <div className="intem-form">
             <label htmlFor="description">Description</label>
-            <textarea name="description" placeholder="Description" className="textarea textarea-primary"/>
+            <textarea
+              name="description"
+              placeholder="Description"
+              className="textarea textarea-primary"
+            />
           </div>
 
           <button className="btn btn-primary btn-upload">Ajouter</button>

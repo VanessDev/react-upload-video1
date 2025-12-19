@@ -54,7 +54,7 @@ function CommentItem({ comment, onCommentUpdated, onCommentDeleted, videoId }) {
     <div className="comment-item" style={{ 
       marginBottom: '15px', 
       padding: '10px', 
-      backgroundColor: 'white',  // ← JUSTE le fond blanc
+      backgroundColor: 'white',  
       border: '1px solid #ddd', 
       borderRadius: '5px' 
     }}>
